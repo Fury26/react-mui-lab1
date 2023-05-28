@@ -1,0 +1,76 @@
+{
+	"extends": ["react-app", "prettier"],
+	"plugins": ["react", "import", "simple-import-sort", "prettier"],
+	"env": {
+		"browser": true,
+		"es6": true
+	},
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true
+		},
+		"ecmaVersion": 2020,
+		"sourceType": "module"
+	},
+	"settings": {
+		"import/resolver": {
+			"node": {
+				"extensions": [".js", ".jsx"],
+				"moduleDirectory": ["node_modules", "src"]
+			}
+		}
+	},
+	"rules": {
+		"no-template-curly-in-string": "off",
+		"import/prefer-default-export": "off",
+		"jsx-a11y/alt-text": 0,
+		"jsx-a11y/control-has-associated-label": 0,
+		"jsx-a11y/click-events-have-key-events": 0,
+		"jsx-a11y/label-has-associated-control": 0,
+		"jsx-a11y/no-noninteractive-element-interactions": 0,
+		"jsx-a11y/no-noninteractive-tabindex": 0,
+		"jsx-a11y/no-static-element-interactions": 0,
+		"no-param-reassign": [
+			"error",
+			{
+				"props": true,
+				"ignorePropertyModificationsFor": ["state", "result", "caregiverAtLocationObject"]
+			}
+		],
+		"prettier/prettier": [
+			"error",
+			{
+				"endOfLine": "auto"
+			}
+		],
+		"react/button-has-type": 0,
+		"react/jsx-key": ["warn", { "checkFragmentShorthand": true }],
+		"react/function-component-definition": [
+			0,
+			{
+				"namedComponents": "arrow-function",
+				"unnamedComponents": "arrow-function"
+			}
+		],
+		"react/jsx-props-no-spreading": 0,
+		"react/prop-types": 0,
+		"react/require-default-props": 0,
+		"simple-import-sort/imports": [
+			"error",
+			{
+				"groups": [
+					["^react", "^@?\\w"],
+					["^(routes|config|constants|helpers|redux/.*|hooks|providers|assets)(/.*|$)"],
+					["^(components)(/.*|$)"],
+					["^(feature)(/.*|$)"],
+					["^\\."],
+					["^"],
+					[".+index.styled"],
+					["^\\u0000"]
+				]
+			}
+		],
+		"simple-import-sort/exports": "error"
+	},
+	"ignorePatterns": ["src/components/tableau-package/*.js"]
+}
