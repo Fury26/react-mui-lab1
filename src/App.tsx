@@ -9,6 +9,9 @@ import { Credentials } from 'store/auth/types';
 import { axiosInstance } from 'helpers/auth';
 import { ROUTES } from 'helpers/routes';
 
+import HomePage from 'feature/home';
+import Login from 'feature/login';
+
 const App: React.FC = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
@@ -62,7 +65,7 @@ const App: React.FC = () => {
 
 		return (
 			<>
-				<Route path={ROUTES.HOME} element={<>HOME</>} />
+				<Route path={ROUTES.HOME} element={<HomePage />} />
 				<Route path="*" element={<Navigate to={ROUTES.HOME} />} />
 			</>
 		);
@@ -71,7 +74,7 @@ const App: React.FC = () => {
 	return (
 		<>
 			<Routes>
-				<Route path={ROUTES.LOGIN} element={<>LOGIN</>} />
+				<Route path={ROUTES.LOGIN} element={<Login />} />
 				<Route
 					path="*"
 					element={

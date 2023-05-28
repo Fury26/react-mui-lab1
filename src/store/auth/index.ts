@@ -1,9 +1,11 @@
+import { toast } from 'react-toastify';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import { AppDispatch, GetState, ResponseCallback, RootState, store } from 'store';
 
 import { axiosInstance, fetchUser } from 'helpers/auth';
+import { ERRORS } from 'helpers/messages';
 
 import { AuthState, Credentials, User } from './types';
 export * from './types';
@@ -56,11 +58,12 @@ export const getUser = (cred: Credentials) => async (dispatch: AppDispatch) => {
 	dispatch(setIsLoading(true));
 	try {
 		const { user } = await fetchUser(cred);
-		// dispatch(setUser(user));
+		dispatch(setUser(user));
 	} catch (e) {
-		const error = e as AxiosError<{ error: { summary: string; detail: string; code: string } }>;
+		const error = e as AxiosError<{ error: string }>;
 		removeAccessToken();
 		dispatch(clearUser());
+		toast(error.response?.data.error || ERRORS.DEFAULT, { type: 'error' });
 	}
 	dispatch(setIsLoading(false));
 };
