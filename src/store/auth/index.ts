@@ -2,9 +2,9 @@ import { toast } from 'react-toastify';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
-import { AppDispatch, GetState, ResponseCallback, RootState, store } from 'store';
+import { AppDispatch } from 'store';
 
-import { axiosInstance, fetchUser } from 'helpers/auth';
+import { fetchUser } from 'helpers/auth';
 import { ERRORS } from 'helpers/messages';
 
 import { AuthState, Credentials, User } from './types';

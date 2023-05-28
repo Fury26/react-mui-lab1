@@ -2,16 +2,14 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Button, Container, Grid, Stack, Typography } from '@mui/material';
 
-import { loginUser } from 'helpers/auth';
+import { registerUser } from 'helpers/auth';
 import { ROUTES } from 'helpers/routes';
 
 import Field from './field';
 
-import './index.css';
-
-const Login = () => {
+const Register = () => {
 	const navigate = useNavigate();
-	const [input, setInput] = useState({ email: '', password: '' });
+	const [input, setInput] = useState({ email: '', password: '', name: '' });
 
 	const handleInput = (key: keyof typeof input, value: string) => {
 		setInput((prev) => ({
@@ -20,8 +18,8 @@ const Login = () => {
 		}));
 	};
 
-	const onLoginHandler = async () => {
-		const res = await loginUser(input);
+	const onRegisterHandler = async () => {
+		const res = await registerUser(input);
 		if (res.token) {
 			navigate(ROUTES.HOME);
 		}
@@ -30,7 +28,7 @@ const Login = () => {
 	return (
 		<Box className="container large">
 			<Typography sx={{ mb: 2, fontSize: 24 }} component="h1">
-				Login
+				Registration Form
 			</Typography>
 			<Container className="border">
 				<Grid container spacing={2}>
@@ -45,14 +43,17 @@ const Login = () => {
 							type="password"
 						/>
 					</Grid>
+					<Grid item xs={12}>
+						<Field value={input.name} onChange={(value) => handleInput('name', value)} label="Username" />
+					</Grid>
 				</Grid>
 				<Stack direction="row" sx={{ mt: 2 }} spacing={2}>
-					<Button variant="contained" onClick={onLoginHandler}>
-						Login
+					<Button variant="contained" onClick={onRegisterHandler}>
+						Sign Up
 					</Button>
 
-					<Button variant="outlined" onClick={() => navigate(ROUTES.REGISTER)}>
-						...or Sign Up
+					<Button variant="outlined" onClick={() => navigate(ROUTES.LOGIN)}>
+						I am already have an account
 					</Button>
 				</Stack>
 			</Container>
@@ -60,4 +61,4 @@ const Login = () => {
 	);
 };
 
-export default Login;
+export default Register;

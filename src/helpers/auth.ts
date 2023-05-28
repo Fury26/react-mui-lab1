@@ -63,3 +63,14 @@ export const loginUser = async (input: LoginInput) => {
 		return { error: error.response?.data.error || ERRORS.DEFAULT, token: '' };
 	}
 };
+
+export const registerUser = async (input: RegisterInput) => {
+	try {
+		const res = await axiosInstance.post<{ token: string }>('/auth', input);
+		setAccessToken({ token: res.data.token });
+		return { token: res.data.token, error: '' };
+	} catch (e) {
+		const error = e as AxiosError<{ error: string }>;
+		return { error: error.response?.data.error || ERRORS.DEFAULT, token: '' };
+	}
+};

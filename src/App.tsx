@@ -11,6 +11,7 @@ import { ROUTES } from 'helpers/routes';
 
 import HomePage from 'feature/home';
 import Login from 'feature/login';
+import Register from 'feature/login/register';
 
 const App: React.FC = () => {
 	const navigate = useNavigate();
@@ -75,6 +76,8 @@ const App: React.FC = () => {
 		<>
 			<Routes>
 				<Route path={ROUTES.LOGIN} element={<Login />} />
+				<Route path={ROUTES.REGISTER} element={<Register />} />
+
 				<Route
 					path="*"
 					element={
