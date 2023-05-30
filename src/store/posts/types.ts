@@ -1,7 +1,7 @@
 import { User } from 'store/auth';
 
 export type Post = {
-	id: string;
+	_id: string;
 	title: string;
 	body: string;
 	owner: User;

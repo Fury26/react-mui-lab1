@@ -1,7 +1,9 @@
 export type User = {
-	id: string;
+	_id: string;
 	name: string;
 	email: string;
+	likedPosts: string[];
+	dislikedPosts: string[];
 };
 
 export type Credentials = {

@@ -2,31 +2,27 @@ import React, { useEffect } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Container, Stack } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { useAppDispatch, useSelector } from 'store';
-import { getAccessToken } from 'store/auth';
-import posts, { getFeedPosts } from 'store/posts';
+import { getFeedPosts } from 'store/posts';
 
-import Post from 'components/post';
 import PostList from 'components/post-list';
 
 const HomePage = () => {
 	const { user } = useSelector((state) => state.auth);
 	const { feed } = useSelector((state) => state.post);
 
-	const token = getAccessToken();
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
-		if (!user) {
+		if (!user?._id) {
 			return;
 		}
 		dispatch(getFeedPosts({}));
-	}, [dispatch, user]);
+	}, [dispatch, user?._id]);
 
 	return (
 		<Stack sx={{ overflow: 'hidden', width: '100vw', pb: 2 }}>
