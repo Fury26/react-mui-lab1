@@ -9,11 +9,13 @@ export type Post = {
 	dislikes: number;
 	created_at: string;
 	updated_at: string;
+	comments: Comment[];
 };
 
 export type MetaData = {
 	page: number;
 	perPage: number;
+	count?: number;
 };
 
 export type PostState = {
@@ -22,9 +24,20 @@ export type PostState = {
 		metadata: MetaData;
 	};
 	isLoadingPosts: boolean;
+	activePost: Post | null;
+	activePostComments: {
+		comments: Comment[];
+		metadata: MetaData;
+	} | null;
 };
 
 export type PostQuery = {
 	perPage?: number;
 	page?: number;
+};
+
+export type Comment = {
+	_id: string;
+	creator: User;
+	text: string;
 };

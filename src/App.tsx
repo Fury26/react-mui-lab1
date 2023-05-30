@@ -12,6 +12,7 @@ import { ROUTES } from 'helpers/routes';
 import HomePage from 'feature/home';
 import Login from 'feature/login';
 import Register from 'feature/login/register';
+import PostPage from 'feature/post-page';
 
 const App: React.FC = () => {
 	const navigate = useNavigate();
@@ -67,6 +68,8 @@ const App: React.FC = () => {
 		return (
 			<>
 				<Route path={ROUTES.HOME} element={<HomePage />} />
+				<Route path="post/:postId" element={<PostPage />} />
+
 				<Route path="*" element={<Navigate to={ROUTES.HOME} />} />
 			</>
 		);
