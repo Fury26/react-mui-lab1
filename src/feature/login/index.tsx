@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Button, Container, Grid, Stack, Typography } from '@mui/material';
+import { useAppDispatch } from 'store';
+import { getAccessToken, getUser } from 'store/auth';
 
 import { loginUser } from 'helpers/auth';
 import { ROUTES } from 'helpers/routes';
@@ -11,6 +13,7 @@ import './index.css';
 
 const Login = () => {
 	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
 	const [input, setInput] = useState({ email: '', password: '' });
 
 	const handleInput = (key: keyof typeof input, value: string) => {
@@ -23,6 +26,7 @@ const Login = () => {
 	const onLoginHandler = async () => {
 		const res = await loginUser(input);
 		if (res.token) {
+			dispatch(getUser(res));
 			navigate(ROUTES.HOME);
 		}
 	};
