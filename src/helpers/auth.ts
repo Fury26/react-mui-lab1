@@ -74,3 +74,9 @@ export const registerUser = async (input: RegisterInput) => {
 		return { error: error.response?.data.error || ERRORS.DEFAULT, token: '' };
 	}
 };
+
+export const getInitials = (name: string) =>
+	name
+		.split(' ')
+		.map((str) => str[0].toUpperCase())
+		.join('');

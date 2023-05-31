@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import PlusIcon from '@mui/icons-material/AddBox';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -19,14 +20,19 @@ import {
 	Typography,
 } from '@mui/material';
 import dayjs from 'dayjs';
-import { useAppDispatch } from 'store';
-import { addComment, dislikePost, likePost, Post as IPost } from 'store/posts';
+import { useAppDispatch, useSelector } from 'store';
+import { addComment, deletePost, dislikePost, likePost, Post as IPost } from 'store/posts';
+
+import { ROUTES } from 'helpers/routes';
+
+import ActionMenu from './action-menu';
 
 type Props = {
 	post: IPost;
 	isLiked: boolean;
 	isDisliked: boolean;
 	onClick?: () => void;
+	withAddComment?: boolean;
 };
 interface ExpandMoreProps extends IconButtonProps {
 	expand: boolean;
@@ -43,9 +49,12 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 	}),
 }));
 
-const Post: React.FC<Props> = ({ post, isDisliked, isLiked, onClick }) => {
+const Post: React.FC<Props> = ({ post, isDisliked, isLiked, onClick, withAddComment = false }) => {
 	const dispatch = useAppDispatch();
 	const [expanded, setExpanded] = React.useState(false);
+	const { user } = useSelector((state) => state.auth);
+
+	const navigate = useNavigate();
 
 	const [comment, setComment] = useState('');
 
@@ -76,9 +85,19 @@ const Post: React.FC<Props> = ({ post, isDisliked, isLiked, onClick }) => {
 		dispatch(dislikePost(post._id));
 	}, [post._id, dispatch]);
 
+	const onDeletePost = () => {
+		dispatch(deletePost(post._id));
+		navigate(ROUTES.HOME);
+	};
+
 	return (
 		<Card sx={{ cursor: onClick ? 'pointer' : undefined }} onClick={onClick}>
-			<CardHeader avatar={<Avatar>{initials}</Avatar>} title={post.owner.name} subheader={time} />
+			<CardHeader
+				avatar={<Avatar>{initials}</Avatar>}
+				title={post.owner.name}
+				subheader={time}
+				action={post.owner._id === user?._id ? <ActionMenu onDelete={onDeletePost} /> : undefined}
+			/>
 			<CardContent>
 				<Typography variant="h5" color="text.secondary">
 					{post.title}
@@ -96,9 +115,11 @@ const Post: React.FC<Props> = ({ post, isDisliked, isLiked, onClick }) => {
 					<DislikeIcon color={isDisliked ? 'error' : 'inherit'} />
 				</IconButton>
 				<Typography>{post.dislikes}</Typography>
-				<ExpandMore expand={expanded} onClick={handleExpandClick} aria-expanded={expanded} aria-label="show more">
-					{!expanded ? <PlusIcon /> : <ExpandMoreIcon />}
-				</ExpandMore>
+				{withAddComment && (
+					<ExpandMore expand={expanded} onClick={handleExpandClick} aria-expanded={expanded} aria-label="show more">
+						{!expanded ? <PlusIcon /> : <ExpandMoreIcon />}
+					</ExpandMore>
+				)}
 			</CardActions>
 			<Collapse in={expanded} timeout="auto" unmountOnExit>
 				<Stack direction="row" spacing={2} alignItems="center" sx={{ p: 2 }}>

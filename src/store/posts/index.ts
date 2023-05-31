@@ -7,7 +7,16 @@ import { setUser } from 'store/auth';
 
 import { fetchUser } from 'helpers/auth';
 import { ERRORS } from 'helpers/messages';
-import { dislikePostRequest, fetchComments, fetchFeed, fetchPost, likePostRequest, sendComment } from 'helpers/posts';
+import {
+	deleteCommentRequest,
+	deletePostRequest,
+	dislikePostRequest,
+	fetchComments,
+	fetchFeed,
+	fetchPost,
+	likePostRequest,
+	sendComment,
+} from 'helpers/posts';
 
 import { Comment, MetaData, Post, PostQuery, PostState } from './types';
 export * from './types';
@@ -47,10 +56,31 @@ export const postsSlice = createSlice({
 			};
 			state.activePostComments = data;
 		},
+		deleteFromActiveComments: (state: PostState, action: PayloadAction<string>) => {
+			if (!state.activePostComments) {
+				return;
+			}
+			state.activePostComments.comments = state.activePostComments.comments.filter(({ _id }) => _id !== action.payload);
+		},
+		removePostById: (state: PostState, action: PayloadAction<string>) => {
+			state.feed.posts = state.feed.posts.filter(({ _id }) => _id !== action.payload);
+			if (state.activePost?._id === action.payload) {
+				state.activePost = null;
+				state.activePostComments = null;
+			}
+		},
 	},
 });
 
-export const { setIsLoading, addFeedPosts, updateFeedById, setActiveComments, setActivePost } = postsSlice.actions;
+export const {
+	setIsLoading,
+	addFeedPosts,
+	updateFeedById,
+	setActiveComments,
+	setActivePost,
+	deleteFromActiveComments,
+	removePostById,
+} = postsSlice.actions;
 
 export default postsSlice.reducer;
 
@@ -128,4 +158,22 @@ export const getComments = (postId: string, params: PostQuery) => async (dispatc
 	}
 
 	dispatch(setIsLoading(false));
+};
+
+export const deleteComment = (commentId: string) => async (dispatch: AppDispatch) => {
+	const res = await deleteCommentRequest(commentId);
+	if (res.error) {
+		toast(res.error || ERRORS.DEFAULT, { type: 'error' });
+	} else {
+		dispatch(deleteFromActiveComments(commentId));
+	}
+};
+
+export const deletePost = (postId: string) => async (dispatch: AppDispatch) => {
+	const res = await deletePostRequest(postId);
+	if (res.error) {
+		toast(res.error || ERRORS.DEFAULT, { type: 'error' });
+	} else {
+		dispatch(removePostById(postId));
+	}
 };

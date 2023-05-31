@@ -40,4 +40,6 @@ export type Comment = {
 	_id: string;
 	creator: User;
 	text: string;
+	created_at: string;
+	updated_at: string;
 };

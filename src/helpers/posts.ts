@@ -66,3 +66,23 @@ export const fetchComments = async (postId: string, params: PostQuery) => {
 		return { error: error.response?.data.error || ERRORS.DEFAULT, comments: undefined, metadata: undefined };
 	}
 };
+
+export const deleteCommentRequest = async (commentId: string) => {
+	try {
+		await axiosInstance.delete<string>(`posts/comment/${commentId}`);
+		return { error: undefined };
+	} catch (e) {
+		const error = e as AxiosError<{ error: string }>;
+		return { error: error.response?.data.error };
+	}
+};
+
+export const deletePostRequest = async (postId: string) => {
+	try {
+		await axiosInstance.delete<string>(`posts/${postId}`);
+		return { error: undefined };
+	} catch (e) {
+		const error = e as AxiosError<{ error: string }>;
+		return { error: error.response?.data.error };
+	}
+};

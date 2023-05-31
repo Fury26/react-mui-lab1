@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
-import { Container } from '@mui/material';
+import { Container, Stack, Typography } from '@mui/material';
 import { useAppDispatch, useSelector } from 'store';
 import { getComments, getPost } from 'store/posts';
 
+import Comment from 'components/comment';
 import Post from 'components/post';
 
 import AppWrapper from 'feature/app-wrapper';
@@ -34,8 +35,14 @@ const PostPage = () => {
 						post={activePost}
 						isLiked={user.likedPosts.includes(activePost._id)}
 						isDisliked={user.dislikedPosts.includes(activePost._id)}
+						withAddComment
 					/>
-					Comments Count {activePostComments?.comments.length}
+					<Stack sx={{ mt: 2 }} spacing={2}>
+						<Typography variant="h6">Comments</Typography>
+						{activePostComments?.comments.map((c) => (
+							<Comment comment={c} key={c._id} />
+						))}
+					</Stack>
 				</Container>
 			)}
 		</AppWrapper>
