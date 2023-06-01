@@ -8,6 +8,7 @@ import { setUser } from 'store/auth';
 import { fetchUser } from 'helpers/auth';
 import { ERRORS } from 'helpers/messages';
 import {
+	createPostRequest,
 	deleteCommentRequest,
 	deletePostRequest,
 	dislikePostRequest,
@@ -18,7 +19,7 @@ import {
 	sendComment,
 } from 'helpers/posts';
 
-import { Comment, MetaData, Post, PostQuery, PostState } from './types';
+import { Comment, CreatePostInput, MetaData, Post, PostQuery, PostState } from './types';
 export * from './types';
 
 export const initialState: PostState = {
@@ -167,6 +168,17 @@ export const deleteComment = (commentId: string) => async (dispatch: AppDispatch
 	} else {
 		dispatch(deleteFromActiveComments(commentId));
 	}
+};
+
+export const createPost = (input: CreatePostInput) => async (dispatch: AppDispatch) => {
+	const res = await createPostRequest(input);
+	if (res.error) {
+		toast(res.error || ERRORS.DEFAULT, { type: 'error' });
+	}
+	return !!res.error;
+	// } else {
+	// 	dispatch(deleteFromActiveComments(commentId));
+	// }
 };
 
 export const deletePost = (postId: string) => async (dispatch: AppDispatch) => {

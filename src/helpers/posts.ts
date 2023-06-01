@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios';
 import { User } from 'store/auth';
-import { Comment, MetaData, Post, PostQuery } from 'store/posts';
+import { Comment, CreatePostInput, MetaData, Post, PostQuery } from 'store/posts';
 
 import { axiosInstance } from './auth';
 import { ERRORS } from './messages';
@@ -84,5 +84,15 @@ export const deletePostRequest = async (postId: string) => {
 	} catch (e) {
 		const error = e as AxiosError<{ error: string }>;
 		return { error: error.response?.data.error };
+	}
+};
+
+export const createPostRequest = async (input: CreatePostInput) => {
+	try {
+		const res = await axiosInstance.post<{ post: Post }>(`posts`, input);
+		return { error: undefined, ...res.data };
+	} catch (e) {
+		const error = e as AxiosError<{ error: string }>;
+		return { error: error.response?.data.error, post: undefined };
 	}
 };

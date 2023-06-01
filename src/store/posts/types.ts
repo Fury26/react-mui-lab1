@@ -12,6 +12,11 @@ export type Post = {
 	comments: Comment[];
 };
 
+export type CreatePostInput = {
+	title: string;
+	body: string;
+};
+
 export type MetaData = {
 	page: number;
 	perPage: number;
