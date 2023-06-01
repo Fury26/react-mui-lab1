@@ -2,12 +2,11 @@ import React, { useCallback, useRef } from 'react';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import { Box, CircularProgress, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 import { logoutAction, RootState, useAppDispatch } from 'store';
 import { getAccessToken, getUser, removeAccessToken } from 'store/auth';
 import { Credentials } from 'store/auth/types';
 
-import { axiosInstance } from 'helpers/auth';
 import { ROUTES } from 'helpers/routes';
 
 import Loader from 'components/loader';
@@ -23,7 +22,7 @@ const App: React.FC = () => {
 	const location = useLocation();
 	const dispatch = useAppDispatch();
 
-	const { isLoadingUser, user } = useSelector((state: RootState) => state.auth);
+	const { isLoadingUser } = useSelector((state: RootState) => state.auth);
 	const redirectWithMessage = useRef(false);
 
 	const loadUser = useCallback(
@@ -93,15 +92,11 @@ const App: React.FC = () => {
 				/>
 				{protectedRoutes()}
 			</Routes>
-			{/* 'rgba(0, 0, 0, 0.32)' */}
 			{isLoadingUser && (
 				<Stack sx={{ width: '100vw', height: '100vh', position: 'fixed' }}>
 					<Loader />
 				</Stack>
 			)}
-			{/* <UserLoader>
-				<Loader isLoading={isLoading} size="lg" />
-			</UserLoader> */}
 		</>
 	);
 };

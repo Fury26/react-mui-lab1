@@ -1,9 +1,6 @@
 import React, { useMemo } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import MenuIcon from '@mui/icons-material/Menu';
-import { AppBar, Button, IconButton, Toolbar, Typography } from '@mui/material';
-import Avatar from '@mui/material/Avatar';
-import CardMedia from '@mui/material/CardMedia';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { AppBar, Button, Toolbar, Typography } from '@mui/material';
 
 import { ROUTES } from 'helpers/routes';
 

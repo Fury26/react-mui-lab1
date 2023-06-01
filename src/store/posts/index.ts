@@ -1,11 +1,9 @@
 import { toast } from 'react-toastify';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
-import { AxiosError } from 'axios';
 import { AppDispatch, GetState } from 'store';
 import { setUser } from 'store/auth';
 
-import { fetchUser } from 'helpers/auth';
 import { ERRORS } from 'helpers/messages';
 import {
 	createPostRequest,
@@ -170,15 +168,16 @@ export const deleteComment = (commentId: string) => async (dispatch: AppDispatch
 	}
 };
 
-export const createPost = (input: CreatePostInput) => async (dispatch: AppDispatch) => {
+export const createPost = (input: CreatePostInput) => async (dispatch: AppDispatch, getState: GetState) => {
 	const res = await createPostRequest(input);
 	if (res.error) {
 		toast(res.error || ERRORS.DEFAULT, { type: 'error' });
 	}
+	if (res.post) {
+		const metadata = getState().post.feed.metadata;
+		dispatch(addFeedPosts({ posts: [res.post], metadata: { ...metadata, count: metadata.count || 0 + 1 } }));
+	}
 	return !!res.error;
-	// } else {
-	// 	dispatch(deleteFromActiveComments(commentId));
-	// }
 };
 
 export const deletePost = (postId: string) => async (dispatch: AppDispatch) => {

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Button, Container, Grid, Stack, Typography } from '@mui/material';
 import { useAppDispatch } from 'store';
-import { getAccessToken, getUser } from 'store/auth';
+import { getUser } from 'store/auth';
 
 import { loginUser } from 'helpers/auth';
 import { ROUTES } from 'helpers/routes';
