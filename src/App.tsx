@@ -1,5 +1,4 @@
-import React, { useCallback, useRef } from 'react';
-import { useEffect } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { Stack } from '@mui/material';
@@ -8,9 +7,11 @@ import { getAccessToken, getUser, removeAccessToken } from 'store/auth';
 import { Credentials } from 'store/auth/types';
 
 import { ROUTES } from 'helpers/routes';
+import SocketConnection from 'helpers/sockets';
 
 import Loader from 'components/loader';
 
+import AdminPage from 'feature/admin-page';
 import CreatePost from 'feature/create-post';
 import HomePage from 'feature/home';
 import Login from 'feature/login';
@@ -22,7 +23,7 @@ const App: React.FC = () => {
 	const location = useLocation();
 	const dispatch = useAppDispatch();
 
-	const { isLoadingUser } = useSelector((state: RootState) => state.auth);
+	const { isLoadingUser, user } = useSelector((state: RootState) => state.auth);
 	const redirectWithMessage = useRef(false);
 
 	const loadUser = useCallback(
@@ -39,6 +40,13 @@ const App: React.FC = () => {
 			loadUser(cred);
 		}
 	}, [loadUser]);
+
+	useEffect(() => {
+		SocketConnection.connect();
+		return () => {
+			SocketConnection.close();
+		};
+	}, [user?._id]);
 
 	useEffect(() => {
 		const logout = async ({ detail }: any) => {
@@ -69,6 +77,7 @@ const App: React.FC = () => {
 				<Route path={ROUTES.HOME} element={<HomePage />} />
 				<Route path={ROUTES.NEW_POST} element={<CreatePost />} />
 				<Route path="post/:postId" element={<PostPage />} />
+				<Route path={ROUTES.ADMIN_PAGE} element={<AdminPage />} />
 
 				<Route path="*" element={<Navigate to={ROUTES.HOME} />} />
 			</>
