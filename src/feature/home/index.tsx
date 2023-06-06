@@ -1,7 +1,10 @@
 import React, { useEffect } from 'react';
 import { Container } from '@mui/material';
 import { useAppDispatch, useSelector } from 'store';
-import { getFeedPosts } from 'store/posts';
+import { addFeedPosts, getFeedPosts, Post } from 'store/posts';
+
+import SocketConnection from 'helpers/sockets';
+import { useFirstNonFalsyRender } from 'hooks/use-first-render';
 
 import PostList from 'components/post-list';
 
@@ -19,6 +22,20 @@ const HomePage = () => {
 		}
 		dispatch(getFeedPosts({}));
 	}, [dispatch, feed.posts.length, user?._id]);
+
+	const addPost = (post: Post) => {
+		console.log('onAddPost', feed.posts, post._id);
+
+		if (feed.posts.find(({ _id }) => _id === post._id)) {
+			return;
+		}
+		dispatch(addFeedPosts({ posts: [post] }));
+	};
+
+	useFirstNonFalsyRender(user, () => {
+		SocketConnection.connect(user!);
+		SocketConnection.onNewPost(addPost);
+	});
 
 	return (
 		<AppWrapper>

@@ -34,9 +34,17 @@ export const postsSlice = createSlice({
 		setIsLoading: (state: PostState, action: PayloadAction<boolean>) => {
 			state.isLoadingPosts = action.payload;
 		},
-		addFeedPosts: (state: PostState, action: PayloadAction<{ posts: Post[]; metadata: MetaData }>) => {
-			state.feed.posts.push(...action.payload.posts);
-			state.feed.metadata = action.payload.metadata;
+		addFeedPosts: (state: PostState, action: PayloadAction<{ posts: Post[]; metadata?: MetaData }>) => {
+			const posts = [...state.feed.posts, ...action.payload.posts];
+			state.feed.posts = posts.filter((obj, index, arr) => arr.findIndex((item) => item._id === obj._id) === index);
+			if (!action.payload.metadata) {
+				state.feed.metadata = {
+					...state.feed.metadata,
+					count: state.feed.metadata.count || 0 + action.payload.posts.length,
+				};
+			} else {
+				state.feed.metadata = action.payload.metadata;
+			}
 		},
 		setActivePost: (state: PostState, action: PayloadAction<Post | null>) => {
 			state.activePost = action.payload;

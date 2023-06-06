@@ -4,6 +4,7 @@ export type User = {
 	email: string;
 	likedPosts: string[];
 	dislikedPosts: string[];
+	roles?: string[];
 };
 
 export type Credentials = {

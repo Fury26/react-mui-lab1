@@ -42,11 +42,14 @@ const App: React.FC = () => {
 	}, [loadUser]);
 
 	useEffect(() => {
-		SocketConnection.connect();
+		if (!user) {
+			return;
+		}
+		SocketConnection.connect(user);
 		return () => {
 			SocketConnection.close();
 		};
-	}, [user?._id]);
+	}, [user]);
 
 	useEffect(() => {
 		const logout = async ({ detail }: any) => {

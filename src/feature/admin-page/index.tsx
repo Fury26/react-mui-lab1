@@ -1,7 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { Container } from '@mui/material';
+import { useSelector } from 'store';
+
+import { ERRORS } from 'helpers/messages';
+import { ROUTES } from 'helpers/routes';
+import SocketConnection from 'helpers/sockets';
+import { useFirstNonFalsyRender } from 'hooks/use-first-render';
 
 const AdminPage = () => {
-	return <div>AdminPage</div>;
+	const { user } = useSelector((state) => state.auth);
+	const navigate = useNavigate();
+
+	const [usersOnline, setUsersOnline] = useState(0);
+
+	useEffect(() => {
+		if (!user) {
+			return;
+		}
+		if (!user.roles?.includes('admin')) {
+			navigate(ROUTES.HOME);
+			toast(ERRORS.NOT_ADMIN);
+		}
+	}, [navigate, user]);
+
+	useFirstNonFalsyRender(user, () => {
+		SocketConnection.connect(user!);
+		SocketConnection.onUsersOnlineChanged(setUsersOnline);
+	});
+	return <Container>{usersOnline}</Container>;
 };
 
 export default AdminPage;
