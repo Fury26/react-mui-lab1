@@ -9,6 +9,8 @@ import { ROUTES } from 'helpers/routes';
 import SocketConnection from 'helpers/sockets';
 import { useFirstNonFalsyRender } from 'hooks/use-first-render';
 
+import AppWrapper from 'feature/app-wrapper';
+
 const AdminPage = () => {
 	const { user } = useSelector((state) => state.auth);
 	const navigate = useNavigate();
@@ -29,7 +31,11 @@ const AdminPage = () => {
 		SocketConnection.connect(user!);
 		SocketConnection.onUsersOnlineChanged(setUsersOnline);
 	});
-	return <Container>{usersOnline}</Container>;
+	return (
+		<AppWrapper>
+			<Container>Currently users online:&nbsp;{usersOnline}</Container>
+		</AppWrapper>
+	);
 };
 
 export default AdminPage;
