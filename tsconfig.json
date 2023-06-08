@@ -18,6 +18,12 @@
 		"baseUrl": "./src",
 		"downlevelIteration": true
 	},
+	"ts-node": {
+		// these options are overrides used only by ts-node
+		"compilerOptions": {
+			"module": "commonjs"
+		}
+	},
 	"include": ["src", "styled-components.d.ts", "react-app-env.d.ts"],
-	"exclude": ["./setup-env.ts"]
+	"exclude": ["./setup-env.ts", "src/**/*.spec.ts", "src/**/*.test.ts"]
 }

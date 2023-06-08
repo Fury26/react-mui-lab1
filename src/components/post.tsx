@@ -33,6 +33,7 @@ type Props = {
 	isDisliked: boolean;
 	onClick?: () => void;
 	withAddComment?: boolean;
+	userId: string;
 };
 interface ExpandMoreProps extends IconButtonProps {
 	expand: boolean;
@@ -49,10 +50,9 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 	}),
 }));
 
-const Post: React.FC<Props> = ({ post, isDisliked, isLiked, onClick, withAddComment = false }) => {
+const Post: React.FC<Props> = ({ userId, post, isDisliked, isLiked, onClick, withAddComment = false }) => {
 	const dispatch = useAppDispatch();
 	const [expanded, setExpanded] = React.useState(false);
-	const { user } = useSelector((state) => state.auth);
 
 	const navigate = useNavigate();
 
@@ -96,7 +96,7 @@ const Post: React.FC<Props> = ({ post, isDisliked, isLiked, onClick, withAddComm
 				avatar={<Avatar>{initials}</Avatar>}
 				title={post.owner.name}
 				subheader={time}
-				action={post.owner._id === user?._id ? <ActionMenu onDelete={onDeletePost} /> : undefined}
+				action={post.owner._id === userId ? <ActionMenu onDelete={onDeletePost} /> : undefined}
 			/>
 			<CardContent>
 				<Typography variant="h5" color="text.secondary">

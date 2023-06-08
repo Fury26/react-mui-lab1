@@ -4,7 +4,7 @@ import { Stack } from '@mui/material';
 import { useSelector } from 'store';
 import { Post as IPost } from 'store/posts';
 
-import Post from './post';
+import Post from '../post';
 
 type Props = {
 	posts: IPost[];
@@ -17,10 +17,11 @@ const PostList: React.FC<Props> = ({ posts }) => {
 		return null;
 	}
 	return (
-		<Stack spacing={2}>
+		<Stack spacing={2} data-testid="feed-stack">
 			{posts.map((p) => {
 				return (
 					<Post
+						userId={user._id}
 						post={p}
 						key={p._id}
 						isDisliked={user.dislikedPosts.includes(p._id)}

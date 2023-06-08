@@ -32,6 +32,7 @@ const PostPage = () => {
 			{activePost && (
 				<Container sx={{ mt: 2 }}>
 					<Post
+						userId={user._id}
 						post={activePost}
 						isLiked={user.likedPosts.includes(activePost._id)}
 						isDisliked={user.dislikedPosts.includes(activePost._id)}
