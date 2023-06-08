@@ -13,17 +13,13 @@ import {
 	MenuItem,
 } from '@mui/material';
 
-type Props = {
-	onDelete: () => void;
-};
-
-const ActionMenu: React.FC<Props> = ({ onDelete }) => {
+const ActionMenu = ({ onDelete }) => {
 	const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false);
-	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+	const [anchorEl, setAnchorEl] = React.useState(null);
 
 	const isActionOpen = !!anchorEl;
 
-	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
 	};
 

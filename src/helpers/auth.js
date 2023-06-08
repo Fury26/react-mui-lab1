@@ -1,6 +1,5 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { getAccessToken, setAccessToken } from 'store/auth';
-import { Credentials, User } from 'store/auth/types';
 
 import { ERRORS } from './messages';
 
@@ -35,47 +34,36 @@ axiosInstance.interceptors.response.use(
 	},
 );
 
-export const fetchUser = async (cred: Credentials) => {
+export const fetchUser = async (cred) => {
 	try {
-		const res = await axiosInstance.get<{ user: User }>('/users/me');
+		const res = await axiosInstance.get('/users/me');
 		return { user: res.data.user };
 	} catch (error) {
 		throw error;
 	}
 };
 
-export type LoginInput = {
-	email: string;
-	password: string;
-};
-
-export type RegisterInput = LoginInput & {
-	name: string;
-};
-
-export const loginUser = async (input: LoginInput) => {
+export const loginUser = async (input) => {
 	try {
-		const res = await axiosInstance.post<{ token: string }>('/auth/login', input);
+		const res = await axiosInstance.post('/auth/login', input);
 		setAccessToken({ token: res.data.token });
 		return { token: res.data.token, error: '' };
-	} catch (e) {
-		const error = e as AxiosError<{ error: string }>;
+	} catch (error) {
 		return { error: error.response?.data.error || ERRORS.DEFAULT, token: '' };
 	}
 };
 
-export const registerUser = async (input: RegisterInput) => {
+export const registerUser = async (input) => {
 	try {
-		const res = await axiosInstance.post<{ token: string }>('/auth', input);
+		const res = await axiosInstance.post('/auth', input);
 		setAccessToken({ token: res.data.token });
 		return { token: res.data.token, error: '' };
-	} catch (e) {
-		const error = e as AxiosError<{ error: string }>;
+	} catch (error) {
 		return { error: error.response?.data.error || ERRORS.DEFAULT, token: '' };
 	}
 };
 
-export const getInitials = (name: string) =>
+export const getInitials = (name) =>
 	name
 		.split(' ')
 		.map((str) => str[0].toUpperCase())

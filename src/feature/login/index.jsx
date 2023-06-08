@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, Button, Container, Grid, Stack, Typography } from '@mui/material';
+import { Label } from '@mui/icons-material';
+import { Box, Button, Container, Grid, Input, Stack, TextField, Typography, useTheme } from '@mui/material';
 import { useAppDispatch } from 'store';
 import { getUser } from 'store/auth';
 
@@ -9,14 +10,12 @@ import { ROUTES } from 'helpers/routes';
 
 import Field from './field';
 
-import './index.css';
-
 const Login = () => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 	const [input, setInput] = useState({ email: '', password: '' });
 
-	const handleInput = (key: keyof typeof input, value: string) => {
+	const handleInput = (key, value) => {
 		setInput((prev) => ({
 			...prev,
 			[key]: value,
@@ -32,19 +31,25 @@ const Login = () => {
 	};
 
 	return (
-		<Box className="container large">
-			<Typography sx={{ mb: 2, fontSize: 24 }} component="h1">
+		<Stack alignItems="center" sx={(theme) => ({ background: theme.palette.primary.light, minHeight: '100vh', p: 2 })}>
+			<Typography sx={{ mb: 2, fontSize: 24, mt: 10, color: '#fff' }} component="h1">
 				Login
 			</Typography>
-			<Container className="border">
+			<Container sx={{ p: 2, background: '#fff', borderRadius: 4, py: 5 }}>
 				<Grid container spacing={2}>
 					<Grid item xs={12}>
-						<Field value={input.email} onChange={(value) => handleInput('email', value)} label="Email" />
+						<TextField
+							value={input.email}
+							onChange={(e) => handleInput('email', e.target.value)}
+							label="Email"
+							sx={{ width: '100%' }}
+						/>
 					</Grid>
 					<Grid item xs={12}>
-						<Field
+						<TextField
+							sx={{ width: '100%' }}
 							value={input.password}
-							onChange={(value) => handleInput('password', value)}
+							onChange={(e) => handleInput('password', e.target.value)}
 							label="Password"
 							type="password"
 						/>
@@ -60,7 +65,7 @@ const Login = () => {
 					</Button>
 				</Stack>
 			</Container>
-		</Box>
+		</Stack>
 	);
 };
 

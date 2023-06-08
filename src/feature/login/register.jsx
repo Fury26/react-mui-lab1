@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { Box, Button, Container, Grid, Stack, Typography } from '@mui/material';
+import { Box, Button, Container, Grid, Stack, TextField, Typography } from '@mui/material';
 import { useAppDispatch } from 'store';
 import { getUser } from 'store/auth';
 
@@ -15,7 +15,7 @@ const Register = () => {
 	const dispatch = useAppDispatch();
 	const [input, setInput] = useState({ email: '', password: '', name: '' });
 
-	const handleInput = (key: keyof typeof input, value: string) => {
+	const handleInput = (key, value) => {
 		setInput((prev) => ({
 			...prev,
 			[key]: value,
@@ -34,25 +34,36 @@ const Register = () => {
 	};
 
 	return (
-		<Box className="container large">
-			<Typography sx={{ mb: 2, fontSize: 24 }} component="h1">
+		<Stack alignItems="center" sx={(theme) => ({ background: theme.palette.primary.light, minHeight: '100vh', p: 2 })}>
+			<Typography sx={{ mb: 2, fontSize: 24, mt: 10, color: '#fff' }} component="h1">
 				Registration Form
 			</Typography>
-			<Container className="border">
+			<Container sx={{ p: 2, background: '#fff', borderRadius: 4, py: 5 }}>
 				<Grid container spacing={2}>
 					<Grid item xs={12}>
-						<Field value={input.email} onChange={(value) => handleInput('email', value)} label="Email" />
+						<TextField
+							value={input.email}
+							onChange={(e) => handleInput('email', e.target.value)}
+							label="Email"
+							sx={{ width: '100%' }}
+						/>
 					</Grid>
 					<Grid item xs={12}>
-						<Field
+						<TextField
+							sx={{ width: '100%' }}
 							value={input.password}
-							onChange={(value) => handleInput('password', value)}
+							onChange={(e) => handleInput('password', e.target.value)}
 							label="Password"
 							type="password"
 						/>
 					</Grid>
 					<Grid item xs={12}>
-						<Field value={input.name} onChange={(value) => handleInput('name', value)} label="Username" />
+						<TextField
+							value={input.name}
+							onChange={(e) => handleInput('name', e.target.value)}
+							label="Username"
+							sx={{ width: '100%' }}
+						/>
 					</Grid>
 				</Grid>
 				<Stack direction="row" sx={{ mt: 2 }} spacing={2}>
@@ -65,7 +76,7 @@ const Register = () => {
 					</Button>
 				</Stack>
 			</Container>
-		</Box>
+		</Stack>
 	);
 };
 

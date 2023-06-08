@@ -2,9 +2,8 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { Stack } from '@mui/material';
-import { logoutAction, RootState, useAppDispatch } from 'store';
+import { logoutAction, useAppDispatch } from 'store';
 import { getAccessToken, getUser, removeAccessToken } from 'store/auth';
-import { Credentials } from 'store/auth/types';
 
 import { ROUTES } from 'helpers/routes';
 import SocketConnection from 'helpers/sockets';
@@ -18,16 +17,16 @@ import Login from 'feature/login';
 import Register from 'feature/login/register';
 import PostPage from 'feature/post-page';
 
-const App: React.FC = () => {
+const App = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const dispatch = useAppDispatch();
 
-	const { isLoadingUser, user } = useSelector((state: RootState) => state.auth);
+	const { isLoadingUser, user } = useSelector((state) => state.auth);
 	const redirectWithMessage = useRef(false);
 
 	const loadUser = useCallback(
-		async (cred: Credentials) => {
+		async (cred) => {
 			dispatch(getUser(cred));
 		},
 		[dispatch],
@@ -52,7 +51,7 @@ const App: React.FC = () => {
 	}, [user]);
 
 	useEffect(() => {
-		const logout = async ({ detail }: any) => {
+		const logout = async ({ detail }) => {
 			const withMessage = detail?.withLogoutMessage;
 			const isToken = getAccessToken();
 			if (withMessage !== undefined) {

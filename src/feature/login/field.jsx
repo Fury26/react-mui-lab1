@@ -2,15 +2,7 @@ import React, { useRef } from 'react';
 import { FormControl, Input, InputLabel } from '@mui/material';
 import uuid from 'uuid4';
 
-type Props = {
-	placeholder?: string;
-	type?: string;
-	value: string;
-	onChange: (value: string) => void;
-	label?: string;
-};
-
-const Field: React.FC<Props> = ({ label, value, onChange, type = 'text', placeholder }) => {
+const Field = ({ label, value, onChange, type = 'text', placeholder }) => {
 	const id = useRef(uuid());
 	return (
 		<FormControl>

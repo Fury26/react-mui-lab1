@@ -16,7 +16,7 @@ import '@fontsource/roboto/700.css';
 import 'react-toastify/dist/ReactToastify.css';
 import './index.css';
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
 	<BrowserRouter>

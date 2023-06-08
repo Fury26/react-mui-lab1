@@ -1,23 +1,17 @@
 import { toast } from 'react-toastify';
-import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
-import { AxiosError } from 'axios';
-import { AppDispatch } from 'store';
 
 import { fetchUser } from 'helpers/auth';
 import { ERRORS } from 'helpers/messages';
 
-import { AuthState, Credentials, User } from './types';
-export * from './types';
-
-export const initialState: AuthState = {
+export const initialState = {
 	user: null,
 	isLoadingUser: false,
 };
 
 const key = 'credentials';
 
-export const setAccessToken = (cred: Credentials) => {
+export const setAccessToken = (cred) => {
 	localStorage.setItem(key, JSON.stringify(cred));
 };
 
@@ -26,7 +20,7 @@ export const getAccessToken = () => {
 	if (!cred) {
 		return null;
 	}
-	const res: Credentials = JSON.parse(cred);
+	const res = JSON.parse(cred);
 	return res;
 };
 
@@ -38,13 +32,13 @@ export const authSlice = createSlice({
 	name: 'auth',
 	initialState,
 	reducers: {
-		setIsLoading: (state: AuthState, action: PayloadAction<boolean>) => {
+		setIsLoading: (state, action) => {
 			state.isLoadingUser = action.payload;
 		},
-		setUser: (state: AuthState, action: PayloadAction<User>) => {
+		setUser: (state, action) => {
 			state.user = action.payload;
 		},
-		clearUser: (state: AuthState) => {
+		clearUser: (state) => {
 			state.user = null;
 		},
 	},
@@ -54,13 +48,12 @@ export const { setUser, clearUser, setIsLoading } = authSlice.actions;
 
 export default authSlice.reducer;
 
-export const getUser = (cred: Credentials) => async (dispatch: AppDispatch) => {
+export const getUser = (cred) => async (dispatch) => {
 	dispatch(setIsLoading(true));
 	try {
 		const { user } = await fetchUser(cred);
 		dispatch(setUser(user));
-	} catch (e) {
-		const error = e as AxiosError<{ error: string }>;
+	} catch (error) {
 		removeAccessToken();
 		dispatch(clearUser());
 		toast(error.response?.data.error || ERRORS.DEFAULT, { type: 'error' });

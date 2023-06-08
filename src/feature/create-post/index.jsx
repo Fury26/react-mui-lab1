@@ -6,14 +6,14 @@ import { createPost } from 'store/posts';
 
 import AppWrapper from '../app-wrapper';
 
-const CreatePost: React.FC = () => {
+const CreatePost = () => {
 	const [title, setTitle] = useState('');
 	const [titleError, setTitleError] = useState('');
 	const [body, setBody] = useState('');
 
 	const dispatch = useAppDispatch();
 
-	const onTitleChange = (val: string) => {
+	const onTitleChange = (val) => {
 		setTitle((prev) => {
 			if (val.length > 40) {
 				setTitleError('Too many characters');
@@ -24,7 +24,7 @@ const CreatePost: React.FC = () => {
 		});
 	};
 
-	const onTextChange = (val: string) => {
+	const onTextChange = (val) => {
 		setBody((prev) => {
 			if (val.length > 240) {
 				return prev;
@@ -49,28 +49,36 @@ const CreatePost: React.FC = () => {
 	return (
 		<AppWrapper header={{ title: 'New Post' }}>
 			<Container sx={{ maxWidth: '1000px', mt: 4 }}>
-				<Stack>
-					<TextField
-						variant="outlined"
-						value={title}
-						label="Title"
-						onChange={(e) => onTitleChange(e.target.value)}
-						error={!!titleError}
-						helperText={titleError}
-						aria-multiline
-					/>
-					<Typography sx={{ mt: 4 }} variant="h6">
-						Write what you think!
-					</Typography>
-					<TextareaAutosize value={body} onChange={(e) => onTextChange(e.target.value)} maxLength={240} minRows={10} />
-					<Stack direction="row" justifyContent="flex-end" alignItems="center" mt={2} spacing={2}>
-						<Button variant="outlined" onClick={onClearHandler}>
-							Clear
-						</Button>
-						<Button variant="contained" onClick={onSubmitHandler}>
-							Submit
-						</Button>
+				<Stack direction="row" spacing={2}>
+					<Stack direction="column" flexGrow={1}>
+						<Typography variant="h6">Title</Typography>
+						<TextField
+							variant="outlined"
+							value={title}
+							label="Title"
+							onChange={(e) => onTitleChange(e.target.value)}
+							error={!!titleError}
+							helperText={titleError}
+							aria-multiline
+						/>
 					</Stack>
+					<Stack direction="column" flexGrow={1}>
+						<Typography variant="h6">Body</Typography>
+						<TextareaAutosize
+							value={body}
+							onChange={(e) => onTextChange(e.target.value)}
+							maxLength={240}
+							minRows={10}
+						/>
+					</Stack>
+				</Stack>
+				<Stack direction="row" justifyContent="flex-end" alignItems="center" mt={2} spacing={2}>
+					<Button variant="outlined" onClick={onClearHandler}>
+						Clear
+					</Button>
+					<Button variant="contained" onClick={onSubmitHandler}>
+						Submit
+					</Button>
 				</Stack>
 			</Container>
 		</AppWrapper>

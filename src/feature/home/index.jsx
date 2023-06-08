@@ -23,7 +23,7 @@ const HomePage = () => {
 		dispatch(getFeedPosts({}));
 	}, [dispatch, feed.posts.length, user?._id]);
 
-	const addPost = (post: Post) => {
+	const addPost = (post) => {
 		console.log('onAddPost', feed.posts, post._id);
 
 		if (feed.posts.find(({ _id }) => _id === post._id)) {
@@ -33,7 +33,7 @@ const HomePage = () => {
 	};
 
 	useFirstNonFalsyRender(user, () => {
-		SocketConnection.connect(user!);
+		SocketConnection.connect(user);
 		SocketConnection.onNewPost(addPost);
 	});
 

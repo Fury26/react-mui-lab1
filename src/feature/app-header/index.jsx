@@ -4,11 +4,7 @@ import { AppBar, Button, Toolbar, Typography } from '@mui/material';
 
 import { ROUTES } from 'helpers/routes';
 
-export type AppHeaderProps = {
-	title?: string;
-};
-
-const AppHeader: React.FC<AppHeaderProps> = ({ title: _title }) => {
+const AppHeader = ({ title: _title }) => {
 	const location = useLocation();
 	const navigate = useNavigate();
 
@@ -18,10 +14,13 @@ const AppHeader: React.FC<AppHeaderProps> = ({ title: _title }) => {
 		}
 		switch (location.pathname) {
 			case ROUTES.HOME: {
-				return 'Feed';
+				return 'Posts';
+			}
+			case ROUTES.NEW_POST: {
+				return 'Creating post...';
 			}
 			default: {
-				return 'Feed';
+				return 'Posts';
 			}
 		}
 	}, [location.pathname, _title]);
@@ -29,15 +28,15 @@ const AppHeader: React.FC<AppHeaderProps> = ({ title: _title }) => {
 	return (
 		<AppBar position="static">
 			<Toolbar>
-				<img src="/images/logo.png" alt="logo" style={{ maxHeight: '48px', transform: 'translateY(-2px)' }} />
-				<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+				<img src="/images/post-logo.png" alt="logo" style={{ maxHeight: '48px', transform: 'translateY(-2px)' }} />
+				<Typography variant="h6" component="div" sx={{ flexGrow: 1, ml: 2 }}>
 					{title}
 				</Typography>
 				<Button color="inherit" onClick={() => navigate(ROUTES.NEW_POST)}>
 					Create
 				</Button>
 				<Button color="inherit" onClick={() => navigate(ROUTES.HOME)}>
-					Feed
+					Posts
 				</Button>
 				<Button color="inherit" variant="outlined" onClick={() => navigate(ROUTES.LOGIN)}>
 					Login

@@ -28,7 +28,7 @@ const AdminPage = () => {
 	}, [navigate, user]);
 
 	useFirstNonFalsyRender(user, () => {
-		SocketConnection.connect(user!);
+		SocketConnection.connect(user);
 		SocketConnection.onUsersOnlineChanged(setUsersOnline);
 	});
 	return (

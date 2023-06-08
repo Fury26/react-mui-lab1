@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-export const useFirstNonFalsyRender = (val: any, fn: () => void): boolean => {
+export const useFirstNonFalsyRender = (val, fn) => {
 	const isRendered = useRef(false);
 
 	useEffect(() => {
