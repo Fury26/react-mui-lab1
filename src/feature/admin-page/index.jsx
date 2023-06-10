@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { Container } from '@mui/material';
+import { Container, Stack, Typography } from '@mui/material';
 import { useSelector } from 'store';
 
 import { ERRORS } from 'helpers/messages';
@@ -33,7 +33,9 @@ const AdminPage = () => {
 	});
 	return (
 		<AppWrapper>
-			<Container>Currently users online:&nbsp;{usersOnline}</Container>
+			<Stack justifyContent="center" alignItems="center" sx={{ height: '70vh' }}>
+				<Typography variant="h2">Web site online:&nbsp;{usersOnline}</Typography>
+			</Stack>
 		</AppWrapper>
 	);
 };
