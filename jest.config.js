@@ -1,9 +1,11 @@
 /** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
 	preset: 'ts-jest',
-	testEnvironment: 'node',
 	transform: {
 		'^.+\\.ts?$': 'ts-jest',
 	},
 	transformIgnorePatterns: ['./node_modules/'],
+	modulePaths: ['<rootDir>/src'],
+	testEnvironment: 'jsdom',
+	setupFiles: ['<rootDir>/src/tests/setEnvVars.js'],
 };

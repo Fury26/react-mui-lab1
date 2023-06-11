@@ -20,7 +20,7 @@ import {
 	Typography,
 } from '@mui/material';
 import dayjs from 'dayjs';
-import { useAppDispatch, useSelector } from 'store';
+import { useAppDispatch } from 'store';
 import { addComment, deletePost, dislikePost, likePost, Post as IPost } from 'store/posts';
 
 import { ROUTES } from 'helpers/routes';
@@ -107,11 +107,11 @@ const Post: React.FC<Props> = ({ userId, post, isDisliked, isLiked, onClick, wit
 				</Typography>
 			</CardContent>
 			<CardActions disableSpacing>
-				<IconButton aria-label="like" onClick={onLikeHandler}>
+				<IconButton aria-label="like" onClick={onLikeHandler} data-testid="like-button">
 					<FavoriteIcon color={isLiked ? 'error' : 'inherit'} />
 				</IconButton>
 				<Typography sx={{ mr: 1 }}>{post.likes}</Typography>
-				<IconButton aria-label="dislike" onClick={onDislikeHandler}>
+				<IconButton aria-label="dislike" onClick={onDislikeHandler} data-testid="dislike-button">
 					<DislikeIcon color={isDisliked ? 'error' : 'inherit'} />
 				</IconButton>
 				<Typography>{post.dislikes}</Typography>

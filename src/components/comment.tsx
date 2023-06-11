@@ -1,22 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import DeleteIcon from '@mui/icons-material/Delete';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import {
-	Avatar,
-	Button,
-	Card,
-	CardContent,
-	CardHeader,
-	Dialog,
-	DialogActions,
-	DialogContent,
-	DialogContentText,
-	DialogTitle,
-	IconButton,
-	Menu,
-	MenuItem,
-	Typography,
-} from '@mui/material';
+import { Avatar, Card, CardContent, CardHeader, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import { useAppDispatch, useSelector } from 'store';
 import { Comment as IComment, deleteComment } from 'store/posts';
@@ -37,25 +20,9 @@ const Comment: React.FC<Props> = ({ comment }) => {
 
 	const { user } = useSelector((state) => state.auth);
 
-	const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false);
-	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
-	const isActionOpen = !!anchorEl;
-
-	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-		setAnchorEl(event.currentTarget);
-	};
-
-	const handleClose = () => {
-		setAnchorEl(null);
-	};
-
 	const onDeleteComment = async () => {
 		await dispatch(deleteComment(comment._id));
-		closeDeleteConfirm();
 	};
-
-	const closeDeleteConfirm = () => setIsDeleteConfirmOpen(false);
 
 	return (
 		<Card variant="outlined">
