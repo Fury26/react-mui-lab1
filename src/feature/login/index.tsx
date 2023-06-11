@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, Button, Container, Grid, Stack, Typography } from '@mui/material';
+import { Box, Button, Container, Grid, Stack, TextField, Typography } from '@mui/material';
 import { useAppDispatch } from 'store';
 import { getUser } from 'store/auth';
 
@@ -16,10 +16,10 @@ const Login = () => {
 	const dispatch = useAppDispatch();
 	const [input, setInput] = useState({ email: '', password: '' });
 
-	const handleInput = (key: keyof typeof input, value: string) => {
+	const handleInput = (key: keyof typeof input) => (e: React.ChangeEvent<HTMLInputElement>) => {
 		setInput((prev) => ({
 			...prev,
-			[key]: value,
+			[key]: e.target.value,
 		}));
 	};
 
@@ -39,23 +39,33 @@ const Login = () => {
 			<Container className="border">
 				<Grid container spacing={2}>
 					<Grid item xs={12}>
-						<Field value={input.email} onChange={(value) => handleInput('email', value)} label="Email" />
+						<TextField
+							inputProps={{
+								'data-cy': 'email-input',
+							}}
+							value={input.email}
+							onChange={handleInput('email')}
+							label="Email"
+						/>
 					</Grid>
 					<Grid item xs={12}>
-						<Field
+						<TextField
+							inputProps={{
+								'data-cy': 'password-input',
+							}}
 							value={input.password}
-							onChange={(value) => handleInput('password', value)}
+							onChange={handleInput('password')}
 							label="Password"
 							type="password"
 						/>
 					</Grid>
 				</Grid>
 				<Stack direction="row" sx={{ mt: 2 }} spacing={2}>
-					<Button variant="contained" onClick={onLoginHandler}>
+					<Button variant="contained" onClick={onLoginHandler} data-cy="login-button">
 						Login
 					</Button>
 
-					<Button variant="outlined" onClick={() => navigate(ROUTES.REGISTER)}>
+					<Button variant="outlined" onClick={() => navigate(ROUTES.REGISTER)} data-cy="go-to-signup">
 						...or Sign Up
 					</Button>
 				</Stack>

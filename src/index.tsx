@@ -24,8 +24,10 @@ root.render(
 			<ReduxProvider store={store}>
 				<App />
 				<ToastContainer
+					className="toast-cy"
 					position="top-center"
-					autoClose={5000}
+					// autoClose={5000}
+					autoClose={false}
 					newestOnTop
 					closeOnClick
 					rtl={false}

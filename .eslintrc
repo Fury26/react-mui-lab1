@@ -1,9 +1,10 @@
 {
-	"extends": ["react-app", "prettier"],
-	"plugins": ["react", "import", "simple-import-sort", "prettier"],
+	"extends": ["react-app", "prettier", "plugin:cypress/recommended"],
+	"plugins": ["cypress", "react", "import", "simple-import-sort", "prettier"],
 	"env": {
 		"browser": true,
-		"es6": true
+		"es6": true,
+		"cypress/globals": true
 	},
 	"parserOptions": {
 		"ecmaFeatures": {
@@ -30,6 +31,12 @@
 		"jsx-a11y/no-noninteractive-element-interactions": 0,
 		"jsx-a11y/no-noninteractive-tabindex": 0,
 		"jsx-a11y/no-static-element-interactions": 0,
+		"cypress/no-assigning-return-values": "error",
+		"cypress/no-unnecessary-waiting": "error",
+		"cypress/assertion-before-screenshot": "warn",
+		"cypress/no-force": "warn",
+		"cypress/no-async-tests": "error",
+		"cypress/no-pause": "error",
 		"no-param-reassign": [
 			"error",
 			{
