@@ -37,7 +37,8 @@
 		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "jest",
-		"eject": "react-scripts eject"
+		"eject": "react-scripts eject",
+		"cypress-test": "npx cypress open"
 	},
 	"eslintConfig": {
 		"extends": [
