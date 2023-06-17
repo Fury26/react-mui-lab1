@@ -1,8 +1,8 @@
 import { toast } from 'react-toastify';
 import { createSlice } from '@reduxjs/toolkit';
 
-import { fetchUser } from 'helpers/auth';
-import { ERRORS } from 'helpers/messages';
+import { fetchUser } from '../../helpers/auth';
+import { ERRORS } from '../../helpers/messages';
 
 export const initialState = {
 	user: null,

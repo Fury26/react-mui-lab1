@@ -2,11 +2,10 @@ import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Avatar, Card, CardContent, CardHeader, Typography } from '@mui/material';
 import dayjs from 'dayjs';
-import { useAppDispatch } from 'store';
-import { deletePost } from 'store/posts';
 
-import { ROUTES } from 'helpers/routes';
-
+import { ROUTES } from '../helpers/routes';
+import { useAppDispatch } from '../store';
+import { deletePost } from '../store/posts';
 import ActionMenu from './action-menu';
 
 const Post = ({ userId, post, onClick }) => {

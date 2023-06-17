@@ -2,20 +2,18 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { Stack } from '@mui/material';
-import { logoutAction, useAppDispatch } from 'store';
-import { getAccessToken, getUser, removeAccessToken } from 'store/auth';
 
-import { ROUTES } from 'helpers/routes';
-import SocketConnection from 'helpers/sockets';
-
-import Loader from 'components/loader';
-
-import AdminPage from 'feature/admin-page';
-import CreatePost from 'feature/create-post';
-import HomePage from 'feature/home';
-import Login from 'feature/login';
-import Register from 'feature/login/register';
-import PostPage from 'feature/post-page';
+import Loader from './components/loader';
+import AdminPage from './feature/admin-page';
+import CreatePost from './feature/create-post';
+import HomePage from './feature/home';
+import Login from './feature/login';
+import Register from './feature/login/register';
+import PostPage from './feature/post-page';
+import { ROUTES } from './helpers/routes';
+import SocketConnection from './helpers/sockets';
+import { logoutAction, useAppDispatch } from './store';
+import { getAccessToken, getUser, removeAccessToken } from './store/auth';
 
 const App = () => {
 	const navigate = useNavigate();

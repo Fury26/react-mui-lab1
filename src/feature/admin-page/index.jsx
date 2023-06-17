@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Container, Stack, Typography } from '@mui/material';
-import { useSelector } from 'store';
 
-import { ERRORS } from 'helpers/messages';
-import { ROUTES } from 'helpers/routes';
-import SocketConnection from 'helpers/sockets';
-import { useFirstNonFalsyRender } from 'hooks/use-first-render';
-
-import AppWrapper from 'feature/app-wrapper';
+import AppWrapper from '../../feature/app-wrapper';
+import { ERRORS } from '../../helpers/messages';
+import { ROUTES } from '../../helpers/routes';
+import SocketConnection from '../../helpers/sockets';
+import { useFirstNonFalsyRender } from '../../hooks/use-first-render';
+import { useSelector } from '../../store';
 
 const AdminPage = () => {
 	const { user } = useSelector((state) => state.auth);

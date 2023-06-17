@@ -34,9 +34,10 @@ const ActionMenu = ({ onDelete }) => {
 
 	const closeDeleteConfirm = () => setIsDeleteConfirmOpen(false);
 	return (
-		<div onClick={(e) => e.stopPropagation()}>
+		<div onClick={(e) => e.stopPropagation()} data-testid="action-menu">
 			<IconButton
 				id="menu-button"
+				data-testid="menu-button"
 				aria-label="settings"
 				aria-controls={isActionOpen ? 'basic-menu' : undefined}
 				aria-haspopup="true"
@@ -54,7 +55,7 @@ const ActionMenu = ({ onDelete }) => {
 					'aria-labelledby': 'menu-button',
 				}}
 			>
-				<MenuItem onClick={() => setIsDeleteConfirmOpen(true)}>
+				<MenuItem onClick={() => setIsDeleteConfirmOpen(true)} data-testid="delete-button">
 					<DeleteIcon color="error" />
 				</MenuItem>
 			</Menu>
@@ -74,7 +75,7 @@ const ActionMenu = ({ onDelete }) => {
 					<Button onClick={closeDeleteConfirm} autoFocus>
 						Cancel
 					</Button>
-					<Button onClick={onDeleteComment} color="error">
+					<Button onClick={onDeleteComment} color="error" data-testid="confirm-delete-button">
 						Delete!
 					</Button>
 				</DialogActions>

@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Box, Button, Container, Grid, Stack, TextField, Typography } from '@mui/material';
-import { useAppDispatch } from 'store';
-import { getUser } from 'store/auth';
 
-import { registerUser } from 'helpers/auth';
-import { ROUTES } from 'helpers/routes';
-
+import { registerUser } from '../../helpers/auth';
+import { ROUTES } from '../../helpers/routes';
+import { useAppDispatch } from '../../store';
+import { getUser } from '../../store/auth';
 import Field from './field';
 
 const Register = () => {

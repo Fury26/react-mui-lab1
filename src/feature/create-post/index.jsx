@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { TextareaAutosize } from '@mui/base';
 import { Button, Container, Stack, TextField, Typography } from '@mui/material';
-import { useAppDispatch } from 'store';
-import { createPost } from 'store/posts';
 
+import { useAppDispatch } from '../../store';
+import { createPost } from '../../store/posts';
 import AppWrapper from '../app-wrapper';
 
 const CreatePost = () => {

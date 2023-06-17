@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AppBar, Button, Toolbar, Typography } from '@mui/material';
 
-import { ROUTES } from 'helpers/routes';
+import { ROUTES } from '../../helpers/routes';
 
 const AppHeader = ({ title: _title }) => {
 	const location = useLocation();

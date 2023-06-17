@@ -1,9 +1,16 @@
 import { toast } from 'react-toastify';
 import { createSlice } from '@reduxjs/toolkit';
-import { setUser } from 'store/auth';
 
-import { ERRORS } from 'helpers/messages';
-import { createPostRequest, deletePostRequest, dislikePostRequest, fetchFeed, fetchPost, likePostRequest } from 'helpers/posts';
+import { ERRORS } from '../../helpers/messages';
+import {
+	createPostRequest,
+	deletePostRequest,
+	dislikePostRequest,
+	fetchFeed,
+	fetchPost,
+	likePostRequest,
+} from '../../helpers/posts';
+import { setUser } from '../auth';
 
 export const initialState = {
 	feed: { posts: [], metadata: { page: 1, perPage: 30 } },

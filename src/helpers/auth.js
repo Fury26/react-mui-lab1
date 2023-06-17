@@ -1,6 +1,7 @@
+import { toast } from 'react-toastify';
 import axios from 'axios';
-import { getAccessToken, setAccessToken } from 'store/auth';
 
+import { getAccessToken, setAccessToken } from '../store/auth';
 import { ERRORS } from './messages';
 
 export const axiosInstance = axios.create({
@@ -39,6 +40,9 @@ export const fetchUser = async (cred) => {
 		const res = await axiosInstance.get('/users/me');
 		return { user: res.data.user };
 	} catch (error) {
+		console.log('toast', error.response?.data.error);
+
+		toast(error.response?.data.error, { type: 'error' });
 		throw error;
 	}
 };
@@ -49,6 +53,7 @@ export const loginUser = async (input) => {
 		setAccessToken({ token: res.data.token });
 		return { token: res.data.token, error: '' };
 	} catch (error) {
+		toast(error.response?.data.error, { type: 'error' });
 		return { error: error.response?.data.error || ERRORS.DEFAULT, token: '' };
 	}
 };

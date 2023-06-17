@@ -4,10 +4,10 @@ import { Provider as ReduxProvider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { ThemeProvider } from '@mui/material';
-import { store } from 'store';
-import theme from 'theme';
 
 import App from './App';
+import { store } from './store';
+import theme from './theme';
 
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -24,8 +24,10 @@ root.render(
 			<ReduxProvider store={store}>
 				<App />
 				<ToastContainer
+					className="toast-cy"
 					position="top-center"
-					autoClose={5000}
+					// autoClose={5000}
+					autoClose={false}
 					newestOnTop
 					closeOnClick
 					rtl={false}

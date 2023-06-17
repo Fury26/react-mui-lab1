@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Label } from '@mui/icons-material';
 import { Box, Button, Container, Grid, Input, Stack, TextField, Typography, useTheme } from '@mui/material';
-import { useAppDispatch } from 'store';
-import { getUser } from 'store/auth';
 
-import { loginUser } from 'helpers/auth';
-import { ROUTES } from 'helpers/routes';
-
+import { loginUser } from '../../helpers/auth';
+import { ROUTES } from '../../helpers/routes';
+import { useAppDispatch } from '../../store';
+import { getUser } from '../../store/auth';
 import Field from './field';
 
 const Login = () => {
@@ -56,11 +55,11 @@ const Login = () => {
 					</Grid>
 				</Grid>
 				<Stack direction="row" sx={{ mt: 2 }} spacing={2}>
-					<Button variant="contained" onClick={onLoginHandler}>
+					<Button variant="contained" onClick={onLoginHandler} data-cy="login-button">
 						Login
 					</Button>
 
-					<Button variant="outlined" onClick={() => navigate(ROUTES.REGISTER)}>
+					<Button variant="outlined" onClick={() => navigate(ROUTES.REGISTER)} data-cy="go-to-signup">
 						...or Sign Up
 					</Button>
 				</Stack>

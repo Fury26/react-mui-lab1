@@ -1,8 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Grid } from '@mui/material';
-import { useSelector } from 'store';
 
+import { useSelector } from '../../store';
 import Post from '../post';
 
 const PostList = ({ posts }) => {

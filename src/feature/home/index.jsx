@@ -1,14 +1,12 @@
 import React, { useEffect } from 'react';
 import { Container } from '@mui/material';
-import { useAppDispatch, useSelector } from 'store';
-import { addFeedPosts, getFeedPosts, Post } from 'store/posts';
 
-import SocketConnection from 'helpers/sockets';
-import { useFirstNonFalsyRender } from 'hooks/use-first-render';
-
-import PostList from 'components/post-list';
-
-import AppWrapper from 'feature/app-wrapper';
+import PostList from '../../components/post-list';
+import AppWrapper from '../../feature/app-wrapper';
+import SocketConnection from '../../helpers/sockets';
+import { useFirstNonFalsyRender } from '../../hooks/use-first-render';
+import { useAppDispatch, useSelector } from '../../store';
+import { addFeedPosts, getFeedPosts, Post } from '../../store/posts';
 
 const HomePage = () => {
 	const { user } = useSelector((state) => state.auth);

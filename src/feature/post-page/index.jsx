@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container } from '@mui/material';
-import { useAppDispatch, useSelector } from 'store';
-import { getPost } from 'store/posts';
 
-import Post from 'components/post';
-
-import AppWrapper from 'feature/app-wrapper';
+import Post from '../../components/post';
+import AppWrapper from '../../feature/app-wrapper';
+import { useAppDispatch, useSelector } from '../../store';
+import { getPost } from '../../store/posts';
 
 const PostPage = () => {
 	const dispatch = useAppDispatch();

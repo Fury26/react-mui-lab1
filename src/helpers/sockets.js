@@ -1,5 +1,6 @@
 import { io } from 'socket.io-client';
-import { getAccessToken } from 'store/auth';
+
+import { getAccessToken } from '../store/auth';
 
 export const MessagesSubscribe = {
 	NewPost: 'newPostCreated',
